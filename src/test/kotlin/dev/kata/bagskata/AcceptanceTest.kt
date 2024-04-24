@@ -1,6 +1,6 @@
 package dev.kata.bagskata
-import dev.kata.bagskata.models.Item
-import dev.kata.bagskata.models.ItemCategory
+import dev.kata.bagskata.models.item.Item
+import dev.kata.bagskata.models.category.Category
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,16 +12,16 @@ class AcceptanceTest {
     // Durance casts the spell to organise his inventory.
     private var durance = Person()
     private val itemsList = arrayOf(
-        Item("Leather", ItemCategory.CLOTHES),
-        Item("Iron", ItemCategory.METALS),
-        Item("Cooper", ItemCategory.METALS),
-        Item("Marigold", ItemCategory.HERBS),
-        Item("Wool", ItemCategory.CLOTHES),
-        Item("Gold", ItemCategory.METALS),
-        Item("Silk", ItemCategory.CLOTHES),
-        Item("Cooper", ItemCategory.METALS),
-        Item("Cooper", ItemCategory.METALS),
-        Item("Cherry Blossom", ItemCategory.HERBS),
+        Item("Leather", Category.CLOTHES),
+        Item("Iron", Category.METALS),
+        Item("Cooper", Category.METALS),
+        Item("Marigold", Category.HERBS),
+        Item("Wool", Category.CLOTHES),
+        Item("Gold", Category.METALS),
+        Item("Silk", Category.CLOTHES),
+        Item("Cooper", Category.METALS),
+        Item("Cooper", Category.METALS),
+        Item("Cherry Blossom", Category.HERBS),
     )
     @BeforeEach
     fun `reset person `(){
