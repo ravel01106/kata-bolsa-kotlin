@@ -16,11 +16,17 @@ class Person {
         TODO("Not yet implemented")
     }
 
-    fun getPack(): MutableList<Bag> {
+    fun getBags(): MutableList<Bag> {
         return this.inventory
     }
 
     fun addItem(item: Item) {
-        this.inventory.filter { it.category == Category.BACKPACK }[0].items.add(item)
+        getBagByCategory(Category.BACKPACK).items.add(item)
+    }
+    private fun isCategory(bag:Bag, category:Category):Boolean{
+        return bag.category == category
+    }
+    fun getBagByCategory(category:Category):Bag{
+        return this.inventory.filter {isCategory(it, category)}[0]
     }
 }

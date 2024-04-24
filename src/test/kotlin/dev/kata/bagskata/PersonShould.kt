@@ -19,7 +19,7 @@ class PersonShould {
 
         durance.addItem(Item("Iron", Category.METALS))
 
-        assertEquals(1,durance.getPack().filter { it.category== Category.BACKPACK }[0].items.size)
+        assertEquals(1,durance.getBagByCategory(Category.BACKPACK).items.size)
     }
 
 
