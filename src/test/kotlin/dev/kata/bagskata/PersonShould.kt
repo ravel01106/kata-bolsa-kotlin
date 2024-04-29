@@ -43,7 +43,7 @@ class PersonShould {
     fun ` Add 10 items to the inventory` () {
         itemsList.forEach { item: Item -> durance.addItem(item) }
         assertEquals(8, durance.getBagByCategory(Category.BACKPACK).items.size)
-        //assertEquals(1, durance.getBagByCategory(Category.METALS).items.size)
+        assertEquals(2, durance.getBagByCategory(Category.METALS).items.size)
 
     }
 }
