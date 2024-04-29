@@ -4,7 +4,9 @@ import dev.kata.bagskata.models.category.Category
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class AcceptanceTest {
 
@@ -33,33 +35,37 @@ class AcceptanceTest {
     @Test
     fun `Durance puts some items in his inventory`(){
 
-        val itemsExpectedInBackpack = arrayOf(
-            "Leather", "Iron", "Copper", "Marigold",
-            "Wool", "Gold", "Silk", "Copper"
+        val itemsExpectedInBackpack = listOf(
+            "Leather", "Iron", "Cooper", "Marigold",
+            "Wool", "Gold", "Silk", "Cooper"
         )
-        val itemsExpectedInBag = arrayOf("Copper", "Cherry Blossom")
+        val itemsExpectedInBag = listOf("Cooper", "Cherry Blossom")
 
         durance.addSomeItems(itemsList);
 
-        //assertEquals(itemsExpectedInBackpack, durance.getBackpack().getItemsName())
-        //assertEquals(itemsExpectedInBag, durance.getBackpack().getItemsName())
-
-
+        assertThat(itemsExpectedInBackpack)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.BACKPACK)
+                ))
+        assertThat(itemsExpectedInBag)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.METALS)
+                ))
     }
 
     @Test
     fun `Durance casts the spell to organise his inventory`(){
-        val itemsExpectedInBackpack = arrayOf(
+        val itemsExpectedInBackpack = listOf(
             "Cherry Blossom", "Iron", "Leather",
             "Marigold","Silk", "Wool"
         )
-        val itemsExpectedInBag = arrayOf("Copper", "Copper", "Copper", "Gold")
+        val itemsExpectedInBag = listOf("Copper", "Copper", "Copper", "Gold")
 
         durance.addSomeItems(itemsList);
         durance.organize()
 
-        //assertEquals(itemsExpectedInBackpack, durance.getBackpack().getItemsName())
-        //assertEquals(itemsExpectedInBag, durance.getBackpack().getItemsName())
+        //assertEquals(itemsExpectedInBackpack, durance.getItemNamesBag(durance.getBagByCategory(Category.BACKPACK)))
+        //assertEquals(itemsExpectedInBag, durance.getItemNamesBag(durance.getBagByCategory(Category.METALS)))
     }
 
 

@@ -30,6 +30,12 @@ class Person {
         }
         return false
     }
+    fun getItemNamesBag(bag:Bag):List<String> {
+        val itemNamesBags = mutableListOf<String>()
+        bag.items.forEach { item: Item ->  itemNamesBags.add(item.name)}
+        return itemNamesBags.toList()
+
+    }
     private fun getBagCategories (): List<Category> {
         val categoryBags = mutableListOf<Category>()
         inventory.forEach{ bag: Bag ->  categoryBags.add(bag.category)}
