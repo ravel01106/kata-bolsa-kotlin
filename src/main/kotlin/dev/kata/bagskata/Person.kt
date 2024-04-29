@@ -20,32 +20,20 @@ class Person {
         return this.inventory
     }
 
-    fun addItem(item: Item) {
-        val hasBeenPutInBackpack = addItemInBackpack(item)
-        if (!hasBeenPutInBackpack){
-            addItemInBag(item)
-        }
-    }
-
-    private fun addItemInBackpack(item:Item):Boolean{
-        val backpackItems = getBagByCategory(Category.BACKPACK).items
-        if (backpackItems.size < 8){
-            backpackItems.add(item)
-            return true
-        }
-        return false
-    }
-    private fun addItemInBag(item:Item):Boolean{
-        val categoryBags = arrayOf(Category.METALS, Category.NONE, Category.CLOTHES, Category.HERBS)
-        for (category in categoryBags){
-            val bagItems = getBagByCategory(category).items
-            if (bagItems.size < 4){
-                bagItems.add(item)
+    fun addItem(item: Item):Boolean {
+        for (category in getBagCategories()){
+            val bagItems = getBagByCategory(category)
+            if (bagItems.items.size < bagItems.size){
+                bagItems.items.add(item)
                 return true
             }
         }
         return false
-
+    }
+    private fun getBagCategories (): List<Category> {
+        val categoryBags = mutableListOf<Category>()
+        inventory.forEach{ bag: Bag ->  categoryBags.add(bag.category)}
+        return categoryBags.toList()
     }
 
     private fun isCategory(bag:Bag, category:Category):Boolean{
