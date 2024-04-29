@@ -23,8 +23,17 @@ class Person {
     fun addItem(item: Item) {
         if (getBagByCategory(Category.BACKPACK).items.size < 8){
             getBagByCategory(Category.BACKPACK).items.add(item)
-        }else{
+        }else if (getBagByCategory(Category.METALS).items.size < 4){
             getBagByCategory(Category.METALS).items.add(item)
+        }
+        else if (getBagByCategory(Category.NONE).items.size < 4){
+            getBagByCategory(Category.NONE).items.add(item)
+        }
+        else if (getBagByCategory(Category.CLOTHES).items.size < 4){
+            getBagByCategory(Category.CLOTHES).items.add(item)
+        }
+        else if (getBagByCategory(Category.HERBS).items.size < 4){
+            getBagByCategory(Category.HERBS).items.add(item)
         }
 
     }

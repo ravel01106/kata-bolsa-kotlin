@@ -25,6 +25,20 @@ class PersonShould {
         Item("Cooper", Category.METALS),
         Item("Cooper", Category.METALS),
         Item("Cherry Blossom", Category.HERBS),
+        Item("Linen", Category.CLOTHES),
+        Item("Silver", Category.METALS),
+        Item("Iron", Category.METALS),
+        Item("Rose", Category.HERBS),
+        Item("Silk", Category.CLOTHES),
+        Item("Silver", Category.METALS),
+        Item("Silk", Category.CLOTHES),
+        Item("Iron", Category.METALS),
+        Item("Gold", Category.METALS),
+        Item("Seaweed", Category.HERBS),
+        Item("Silk", Category.CLOTHES),
+        Item("Iron", Category.METALS),
+        Item("Gold", Category.METALS),
+        Item("Seaweed", Category.HERBS),
     )
 
     @BeforeEach
@@ -41,9 +55,18 @@ class PersonShould {
     }
     @Test
     fun ` Add 10 items to the inventory` () {
-        itemsList.forEach { item: Item -> durance.addItem(item) }
+        itemsList.copyOfRange(0,10).forEach { item: Item -> durance.addItem(item) }
         assertEquals(8, durance.getBagByCategory(Category.BACKPACK).items.size)
         assertEquals(2, durance.getBagByCategory(Category.METALS).items.size)
+    }
+    @Test
+    fun ` Fill in all inventory` () {
+        itemsList.forEach { item: Item -> durance.addItem(item) }
+        assertEquals(8, durance.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(4, durance.getBagByCategory(Category.METALS).items.size)
+        assertEquals(4, durance.getBagByCategory(Category.NONE).items.size)
+        assertEquals(4, durance.getBagByCategory(Category.CLOTHES).items.size)
+        assertEquals(4, durance.getBagByCategory(Category.HERBS).items.size)
 
     }
 }
