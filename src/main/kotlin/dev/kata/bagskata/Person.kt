@@ -21,7 +21,12 @@ class Person {
     }
 
     fun addItem(item: Item) {
-        getBagByCategory(Category.BACKPACK).items.add(item)
+        if (getBagByCategory(Category.BACKPACK).items.size < 8){
+            getBagByCategory(Category.BACKPACK).items.add(item)
+        }else{
+            getBagByCategory(Category.METALS).items.add(item)
+        }
+
     }
     private fun isCategory(bag:Bag, category:Category):Boolean{
         return bag.category == category
