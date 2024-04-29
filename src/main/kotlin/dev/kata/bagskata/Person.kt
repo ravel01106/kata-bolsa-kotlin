@@ -9,7 +9,7 @@ class Person {
         Backpack(), BagMetal(), BagNoneCategory(), BagClothes(), BagHerb()
     )
     fun addSomeItems(itemsList: Array<Item>) {
-
+        itemsList.forEach { item: Item ->  addItem(item)}
     }
 
     fun organize() {
@@ -21,22 +21,33 @@ class Person {
     }
 
     fun addItem(item: Item) {
-        if (getBagByCategory(Category.BACKPACK).items.size < 8){
-            getBagByCategory(Category.BACKPACK).items.add(item)
-        }else if (getBagByCategory(Category.METALS).items.size < 4){
-            getBagByCategory(Category.METALS).items.add(item)
+        val hasBeenPutInBackpack = addItemInBackpack(item)
+        if (!hasBeenPutInBackpack){
+            addItemInBag(item)
         }
-        else if (getBagByCategory(Category.NONE).items.size < 4){
-            getBagByCategory(Category.NONE).items.add(item)
+    }
+
+    private fun addItemInBackpack(item:Item):Boolean{
+        val backpackItems = getBagByCategory(Category.BACKPACK).items
+        if (backpackItems.size < 8){
+            backpackItems.add(item)
+            return true
         }
-        else if (getBagByCategory(Category.CLOTHES).items.size < 4){
-            getBagByCategory(Category.CLOTHES).items.add(item)
+        return false
+    }
+    private fun addItemInBag(item:Item):Boolean{
+        val categoryBags = arrayOf(Category.METALS, Category.NONE, Category.CLOTHES, Category.HERBS)
+        for (category in categoryBags){
+            val bagItems = getBagByCategory(category).items
+            if (bagItems.size < 4){
+                bagItems.add(item)
+                return true
+            }
         }
-        else if (getBagByCategory(Category.HERBS).items.size < 4){
-            getBagByCategory(Category.HERBS).items.add(item)
-        }
+        return false
 
     }
+
     private fun isCategory(bag:Bag, category:Category):Boolean{
         return bag.category == category
     }
