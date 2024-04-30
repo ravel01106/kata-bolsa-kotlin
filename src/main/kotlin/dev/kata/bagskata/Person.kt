@@ -45,9 +45,6 @@ class Person {
         bagNoneCategory.items.sortBy { it.name }
     }
 
-    fun getBags(): MutableList<Bag> {
-        return this.inventory
-    }
 
     fun getBagByCategory(category:Category):Bag{
         return this.inventory.filter {isCategory(it, category)}[0]
