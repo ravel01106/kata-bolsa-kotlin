@@ -2,6 +2,7 @@ package dev.kata.bagskata
 
 import dev.kata.bagskata.models.category.Category
 import dev.kata.bagskata.models.item.Item
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -13,6 +14,7 @@ class PersonShould {
     // Organise the inventory by having full backpack.
     // Organise the inventory by having 6 items of the same category.
     // Organise all inventory.
+    // Organise all inventory sorted by item name.
     var person = Person()
     val itemsList = arrayOf(
         Item("Leather", Category.CLOTHES),
@@ -101,6 +103,37 @@ class PersonShould {
         assertEquals(4, person.getBagByCategory(Category.CLOTHES).items.size)
         assertEquals(4, person.getBagByCategory(Category.HERBS).items.size)
         assertEquals(4, person.getBagByCategory(Category.NONE).items.size)
+
+    }
+    @Test
+    fun `Organise all inventory sorted by item name`(){
+        val itemsExpectedInBackpack = listOf("Axe","Gold", "Gold", "Iron", "Iron", "Iron", "Iron", "Silver")
+        val itemsExpectedInBagMetal = listOf("Cooper", "Cooper", "Cooper", "Gold")
+        val itemsExpectedInBagHerbs = listOf("Cherry Blossom", "Marigold", "Rose", "Seaweed")
+        val itemsExpectedInBagClothes = listOf("Leather", "Silk", "Silk", "Silk")
+        val itemsExpectedInBagNoneCategory = listOf("Seaweed", "Silk", "Silver", "Wool")
+        itemsList.forEach { item: Item -> person.addItem(item) }
+        person.organize()
+        Assertions.assertThat(itemsExpectedInBackpack)
+            .containsExactlyInAnyOrderElementsOf(
+                person.getItemNamesBag(person.getBagByCategory(Category.BACKPACK)
+                ))
+        Assertions.assertThat(itemsExpectedInBagMetal)
+            .containsExactlyInAnyOrderElementsOf(
+                person.getItemNamesBag(person.getBagByCategory(Category.METALS)
+                ))
+        Assertions.assertThat(itemsExpectedInBagHerbs)
+            .containsExactlyInAnyOrderElementsOf(
+                person.getItemNamesBag(person.getBagByCategory(Category.HERBS)
+                ))
+        Assertions.assertThat(itemsExpectedInBagClothes)
+            .containsExactlyInAnyOrderElementsOf(
+                person.getItemNamesBag(person.getBagByCategory(Category.CLOTHES)
+                ))
+        Assertions.assertThat(itemsExpectedInBagNoneCategory)
+            .containsExactlyInAnyOrderElementsOf(
+                person.getItemNamesBag(person.getBagByCategory(Category.NONE)
+                ))
 
     }
 
