@@ -27,20 +27,20 @@ class Person {
 
     fun organize() {
         val allItems = takingItemsOutFromBags()
+        val itemsDividedInCategories = getItemsDividedPrincipalCategories(allItems)
         val restItem = getRestItems(allItems)
-        val itemsWithCategories = getItemsDividedPrincipalCategories(allItems)
         val backpackItem = getBagByCategory(Category.BACKPACK)
+        val bagNoneCategory = getBagByCategory(Category.NONE)
 
-        for (itemsWithCategory in itemsWithCategories){
+        backpackItem.items.addAll(restItem)
+        for (itemsWithCategory in itemsDividedInCategories){
             val bagItem = getBagByCategory(itemsWithCategory[0].category)
             itemsWithCategory.forEach{ item: Item ->
                 if (bagItem.items.size < bagItem.size)  bagItem.items.add(item)
-                else backpackItem.items.add(item)
+                else if (backpackItem.items.size < backpackItem.size) backpackItem.items.add(item)
+                else bagNoneCategory.items.add(item)
             }
-
         }
-        backpackItem.items.addAll(restItem)
-
     }
 
     fun getBags(): MutableList<Bag> {
