@@ -83,6 +83,16 @@ class PersonShould {
         assertEquals(1, person.getBagByCategory(Category.HERBS).items.size)
         assertEquals(0, person.getBagByCategory(Category.NONE).items.size)
     }
+    @Test
+    fun `Organise the inventory by having two full bags`() {
+        itemsList.copyOfRange(0,10).forEach { item: Item -> person.addItem(item) }
+        person.organize()
+        assertEquals(1, person.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(4, person.getBagByCategory(Category.METALS).items.size)
+        assertEquals(3, person.getBagByCategory(Category.CLOTHES).items.size)
+        assertEquals(2, person.getBagByCategory(Category.HERBS).items.size)
+        assertEquals(0, person.getBagByCategory(Category.NONE).items.size)
+    }
 
 
 }

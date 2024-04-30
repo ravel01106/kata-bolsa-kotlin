@@ -55,17 +55,31 @@ class AcceptanceTest {
 
     @Test
     fun `Durance casts the spell to organise his inventory`(){
-        val itemsExpectedInBackpack = listOf(
-            "Cherry Blossom", "Iron", "Leather",
-            "Marigold","Silk", "Wool"
-        )
-        val itemsExpectedInBag = listOf("Copper", "Copper", "Copper", "Gold")
+        val itemsExpectedInBackpack = listOf("Iron")
+        val itemsExpectedInBagMetal = listOf("Copper", "Copper", "Copper", "Gold")
+        val itemsExpectedInBagHerbs = listOf("Cherry Blossom", "Marigold")
+        val itemsExpectedInBagClothes = listOf("Leather", "Silk", "Wool")
 
         durance.addSomeItems(itemsList);
         durance.organize()
 
-        //assertEquals(itemsExpectedInBackpack, durance.getItemNamesBag(durance.getBagByCategory(Category.BACKPACK)))
-        //assertEquals(itemsExpectedInBag, durance.getItemNamesBag(durance.getBagByCategory(Category.METALS)))
+        assertThat(itemsExpectedInBackpack)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.BACKPACK)
+                ))
+        assertThat(itemsExpectedInBagMetal)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.METALS)
+                ))
+        assertThat(itemsExpectedInBagHerbs)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.HERBS)
+                ))
+        assertThat(itemsExpectedInBagClothes)
+            .containsExactlyInAnyOrderElementsOf(
+                durance.getItemNamesBag(durance.getBagByCategory(Category.CLOTHES)
+                ))
+        assertEquals(0, durance.getBagByCategory(Category.NONE).items.size)
     }
 
 
