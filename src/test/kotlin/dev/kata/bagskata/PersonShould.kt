@@ -10,10 +10,11 @@ class PersonShould {
     // Add an item to the inventory.
     // Add 10 items to the inventory.
     // Fill in all inventory.
+    // Organise the inventory by having one full backpack.
     // Organise the inventory by having two full bags.
     // Organise the inventory by having 6 items of the same category.
     // Organise all inventory.
-    var durance = Person()
+    var person = Person()
     val itemsList = arrayOf(
         Item("Leather", Category.CLOTHES),
         Item("Iron", Category.METALS),
@@ -42,31 +43,46 @@ class PersonShould {
     )
 
     @BeforeEach
-    fun ` Reset durance` () {
-        durance = Person()
+    fun `Empty items` () {
+        person = Person()
     }
 
     @Test
-    fun ` Add an item to the inventory`(){
+    fun `Add an item to the inventory`(){
+        val item = Item("Iron", Category.METALS)
 
-        durance.addItem(Item("Iron", Category.METALS))
+        person.addItem(item)
 
-        assertEquals(1,durance.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(1,person.getBagByCategory(Category.BACKPACK).items.size)
     }
     @Test
-    fun ` Add 10 items to the inventory` () {
-        itemsList.copyOfRange(0,10).forEach { item: Item -> durance.addItem(item) }
-        assertEquals(8, durance.getBagByCategory(Category.BACKPACK).items.size)
-        assertEquals(2, durance.getBagByCategory(Category.METALS).items.size)
+    fun `Add 10 items to the inventory` () {
+        itemsList.copyOfRange(0,10).forEach { item: Item -> person.addItem(item) }
+
+        assertEquals(8, person.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(2, person.getBagByCategory(Category.METALS).items.size)
     }
     @Test
-    fun ` Fill in all inventory` () {
-        itemsList.forEach { item: Item -> durance.addItem(item) }
-        assertEquals(8, durance.getBagByCategory(Category.BACKPACK).items.size)
-        assertEquals(4, durance.getBagByCategory(Category.METALS).items.size)
-        assertEquals(4, durance.getBagByCategory(Category.NONE).items.size)
-        assertEquals(4, durance.getBagByCategory(Category.CLOTHES).items.size)
-        assertEquals(4, durance.getBagByCategory(Category.HERBS).items.size)
+    fun `Fill in all inventory` () {
+        itemsList.forEach { item: Item -> person.addItem(item) }
+
+        assertEquals(8, person.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(4, person.getBagByCategory(Category.METALS).items.size)
+        assertEquals(4, person.getBagByCategory(Category.NONE).items.size)
+        assertEquals(4, person.getBagByCategory(Category.CLOTHES).items.size)
+        assertEquals(4, person.getBagByCategory(Category.HERBS).items.size)
 
     }
+    @Test
+    fun `Organise the inventory by having one full backpack`() {
+        itemsList.copyOfRange(0,8).forEach { item: Item -> person.addItem(item) }
+        person.organize()
+        assertEquals(0, person.getBagByCategory(Category.BACKPACK).items.size)
+        assertEquals(4, person.getBagByCategory(Category.METALS).items.size)
+        assertEquals(3, person.getBagByCategory(Category.CLOTHES).items.size)
+        assertEquals(1, person.getBagByCategory(Category.HERBS).items.size)
+        assertEquals(0, person.getBagByCategory(Category.NONE).items.size)
+    }
+
+
 }
